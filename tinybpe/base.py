@@ -3,9 +3,15 @@
 
 # Increase the vocab size
 # 
+# Implement the regex
 
 # Counting how many times a pair appears in the text
+# Helper Methods 
 def get_stats(ids):
+    """
+    Takes input list of Integer Example - [69, 420, 420, 42, 42, 42]
+    Returns the count of pair Example - {(69, 420): 1, (420, 420): 1, (420, 42): 1, (42, 42): 2}
+    """
     counts = {}
     for pair in zip(ids, ids[1:]):
         counts[pair] = 1 + counts.get(pair, 0)
@@ -13,6 +19,12 @@ def get_stats(ids):
 
 # replacing most frequent pair with new token from vocab list
 def merge(tokens, pair, new_token):
+    """
+    In the given list of tokens(Integers) and a pair replace that pair with new token
+    returns a new token list after merge
+    Example: [1, 1, 2, 3], (1, 1), 4 -> [4, 2, 3]
+
+    """
     i = 0
     new_ids = []
     while i < len(tokens):
