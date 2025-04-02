@@ -1,11 +1,3 @@
-# The goal is to make gpt-4 tokenizer based on what I learned
-
-
-# Increase the vocab size
-# 
-# Implement the regex
-
-# Counting how many times a pair appears in the text
 # Helper Methods 
 def get_stats(ids):
     """
