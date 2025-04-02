@@ -1,2 +1,2 @@
 # tinybpe
-- A small byte pair enoder inspired from karpathy's minbpe. Doing it to understand and learn. 
+- A simple byte pair encoder inspired by Karpathy's minbpe, built to understand and learn the concept better.
