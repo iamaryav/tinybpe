@@ -35,15 +35,3 @@ def merge(tokens, pair, new_token):
             new_ids.append(tokens[i])
             i += 1
     return new_ids
-
-vocab_size = 50255 # Vocab size - matching the GPT-4 vocab size
-num_merges = vocab_size - 256
-ids = list(tokens) # making copy of input tokens so we don't change the actual token list
-merges = {} # Save the merges that will help in decoding
-for i in range(num_merges):
-    stats = get_stats(ids)
-    top_pair = max(stats, key=stats.get)
-    new_token = 256 + i
-    print(f"merging pair: {top_pair} into new token: {new_token}")
-    ids = merge(ids, top_pair, new_token)
-    merges[(top_pair)] = new_token
