@@ -27,3 +27,15 @@ def merge(tokens, pair, new_token):
             new_ids.append(tokens[i])
             i += 1
     return new_ids
+
+
+# --------------
+# Base class for tokenizer
+
+class Tokenizer:
+    def __init__(self):
+        self.merges = {} # (int, int) -> int
+    
+    def train(self, text, vocab_size, log=False):
+        # Tokenizer will train a vocab of size vocab_size form text
+        raise NotImplementedError
