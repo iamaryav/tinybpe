@@ -1,14 +1,13 @@
 """
+Very Basic Tokenizer means Tiny
+Algorithm matches with GPT tokenizer
 
-TODO: Where is Docs bro?
-Basic Tokenizer
-Regex patter to split token into fixed structure is not implemented
-Algorithm matches to GPT tokenizer
+Regex pattern to split token into fixed structure is not implemented
 
 """
 
-
 from .base import Tokenizer, get_stats, merge
+
 
 class BasicTokenizer(Tokenizer):
 
@@ -17,10 +16,9 @@ class BasicTokenizer(Tokenizer):
 
     # Train the basice tokenizer
     def train(self, text, vocab_size, log=False):
-
         assert vocab_size > 256, "vocab size should be greater than 256"
-
         num_merges = vocab_size - 256 # Number of merges will be done as part of this training
+
         # converting text to utf-8 byte encoding
         text_bytes = text.encode("utf-8") # Encoding it to raw bytes
         tokens = list(text_bytes) # making to list of integers between 0 .... 255
@@ -46,7 +44,33 @@ class BasicTokenizer(Tokenizer):
     
     # Implement below methods
     def decode(self, tokens):
-        pass
+        """
+        Given list of tokens and returns the string
+        Example: (97, 97) -> "aa"
+        """
+        text = b"".join([self.vocab[idx] for idx in tokens])
+        text = text.decode("utf-8", errors="replace")
+        return text
 
-    def encode(self, text):
-        pass
+    def encode(self, text: str) -> list[int]:
+        """
+        Given the text return the list of tokens ids
+        """
+
+        text_bytes = text.encode("utf-8")
+        # converting bytes to int between 0...256
+        ids = list(text_bytes)
+        # Loop will run until we have only 2 tokens
+        # or the pair is not found in merges
+        while len(ids) >= 2:
+            stats = get_stats(ids)
+            # from stats get the pair that was merge in the first in training the tokenizer
+            # in self.merges
+            pair = min(stats, key=lambda p: self.merges.get(p, float("inf")))
+            # if pair is not found then break, because we have nothing to merge
+            if pair not in self.merges:
+                break
+            
+            idx = self.merges[pair]
+            ids = merge(ids, pair, idx)
+        return ids
