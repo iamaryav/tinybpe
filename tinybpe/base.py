@@ -1,3 +1,5 @@
+import unicodedata
+
 # Helper Methods 
 def get_stats(ids):
     """
@@ -29,12 +31,23 @@ def merge(tokens, pair, new_token):
     return new_ids
 
 def replace_control_chars(s: str) -> str:
+    # This code is straight from Karpathy's minbpe repo
     # replace control character
-    pass
+    chars = []
+    print("s: ", type(s))
+    for ch in s:
+        print("ch: ", ch)
+        if unicodedata.category(ch)[0] != 'C':
+            chars.append(ch)
+        else:
+            chars.append(f"\\u{ord(ch):04x}") # escaping that
+    return "".join(chars) 
 
 def render_token(t: bytes) -> str:
     # Pretty print the output
-    pass
+    s = t.decode("utf-8", errors="replace")
+    s = replace_control_chars(s)
+    return s
 
 
 

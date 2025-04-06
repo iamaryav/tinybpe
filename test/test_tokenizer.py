@@ -1,5 +1,5 @@
 import pytest
-from tinybpe import BasicTokenizer 
+from tinybpe import BasicTokenizer, replace_control_chars, render_token
 
 
 
@@ -27,6 +27,17 @@ def test_encode():
     out = basic.decode(basic.encode(test_text))
     assert test_text == out
 
+def test_replace_control_character():
+    test_str = "this is \n character test"
+    out = replace_control_chars(test_str)
+    assert out == "this is \\u000a character test" 
+
+def test_render_token():
+    test_str = "this is \n character test"
+    test_bytes = test_str.encode("utf-8")
+    print("test_bytes: ", test_bytes)
+    out = render_token(test_bytes)
+    assert out == "this is \\u000a character test" 
 
 
 if "__name__" == "__main__":
