@@ -28,6 +28,15 @@ def merge(tokens, pair, new_token):
             i += 1
     return new_ids
 
+def replace_control_chars(s: str) -> str:
+    # replace control character
+    pass
+
+def render_token(t: bytes) -> str:
+    # Pretty print the output
+    pass
+
+
 
 # --------------
 # Base class for tokenizer
@@ -39,3 +48,23 @@ class Tokenizer:
     def train(self, text, vocab_size, log=False):
         # Tokenizer will train a vocab of size vocab_size form text
         raise NotImplementedError
+    
+    def encode(self, text):
+        # Tokenizer can encode string into list of Integer
+        raise NotImplementedError
+    
+    def decode(self, ids):
+        # Tokenizer can decode list of integer to string
+        raise NotImplementedError
+
+    def _build_vocab(self):
+        # build the vocab list from merge list that will be used in decoding
+        pass
+    
+    def save(self, file_prefix: str) -> None:
+        # saves vocab and model in a file for later use
+        pass
+    
+    def load(self, model_file):
+        # Inverse of save but only for model file
+        pass
