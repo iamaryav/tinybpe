@@ -57,6 +57,9 @@ def render_token(t: bytes) -> str:
 class Tokenizer:
     def __init__(self):
         self.merges = {} # (int, int) -> int
+        self.pattern = "" # str
+        self.special_tokens = {} # str -> int e.g. {"<|endoftext|>": 100257}
+        self.vocab = self._build_vocab() # int -> bytes
     
     def train(self, text, vocab_size, log=False):
         # Tokenizer will train a vocab of size vocab_size form text
@@ -72,7 +75,16 @@ class Tokenizer:
 
     def _build_vocab(self):
         # build the vocab list from merge list that will be used in decoding
-        pass
+        # from new token to bytes mapping
+        vocab = {idx: bytes([idx]) for idx in range(256)} # creating the dict of first 0...255 integer and their corresponding bytes
+        # all the new merges with their tokens
+        for (p0, p1), id in self.merges.items():
+            vocab[id] = vocab[p0] + vocab[p1]
+        # All the specials token mapping
+        for special, idx in self.special_tokens.items():
+            vocab[idx] = special.encode("utf-8")
+        return vocab
+
     
     def save(self, file_prefix: str) -> None:
         # saves vocab and model in a file for later use

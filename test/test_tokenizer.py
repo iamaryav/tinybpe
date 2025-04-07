@@ -39,6 +39,13 @@ def test_render_token():
     out = render_token(test_bytes)
     assert out == "this is \\u000a character test" 
 
+# def test_vocab_size():
+#     test_str = "this is \n character test"
+#     test_bytes = test_str.encode("utf-8")
+#     print("test_bytes: ", test_bytes)
+#     out = render_token(test_bytes)
+#     assert out == "this is \\u000a character test" 
+
 
 if "__name__" == "__main__":
     pytest.main()
