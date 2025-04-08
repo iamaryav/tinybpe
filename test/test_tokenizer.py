@@ -1,3 +1,4 @@
+import os
 import pytest
 from tinybpe import BasicTokenizer, replace_control_chars, render_token
 
@@ -39,12 +40,23 @@ def test_render_token():
     out = render_token(test_bytes)
     assert out == "this is \\u000a character test" 
 
-# def test_vocab_size():
-#     test_str = "this is \n character test"
-#     test_bytes = test_str.encode("utf-8")
-#     print("test_bytes: ", test_bytes)
-#     out = render_token(test_bytes)
-#     assert out == "this is \\u000a character test" 
+def test_save():
+    file_name = "tinybpe_tokenizer"
+    basic = BasicTokenizer()
+    train_text = "hello world ##### ????1! 😂 Namaste lol :D, what is this"
+    merges = basic.train(train_text, 258)
+    basic.save(file_name)
+    file_name = "tinybpe_tokenizer.model"
+    assert os.path.isfile(file_name)
+
+def test_load():
+    file_name = "tinybpe_tokenizer.model"
+    basic = BasicTokenizer()
+    train_text = "hello world ##### ????1! 😂 Namaste lol :D, what is this"
+    merges = basic.train(train_text, 258)
+    basic.load(file_name)
+    print(basic.merges)
+    assert len(basic.merges) == 1
 
 
 if "__name__" == "__main__":
