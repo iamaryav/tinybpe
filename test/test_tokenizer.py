@@ -62,7 +62,17 @@ def test_regex_train():
     reg = RegexTokenizer()
     train_text = "hello world's ##### ????1! 😂 Namaste lol've :D, what is this"
     merges = reg.train(train_text, 258)
-    assert 1 == 0
+    assert len(reg.merges) == 2
+
+def test_regex_decode():
+    reg = RegexTokenizer()
+    train_text = "hello world's ##### ????1! 😂 Namaste lol've :D, what is this"
+    test_tokens = [97, 98, 99, 100]
+    reg.train(train_text, 258)
+    text = reg.decode(test_tokens)
+    assert text == "abcd"
+
+    assert len(reg.merges) == 2
 
 
 if "__name__" == "__main__":

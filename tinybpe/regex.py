@@ -63,10 +63,31 @@ class RegexTokenizer(Tokenizer):
         self.vocab = vocab
         # print(self.merges)
         # print(self.vocab)
+    
+    def register_special_tokens(self, special_tokens):
+        # special token is dict of str -> int
+        # e.g. {"<|endoftext|>": 100257}
+        self.special_tokens = special_tokens
+        self.inverse_special_tokens = {v: k for k, v in special_tokens.items()}
+    
         
 
-    def decode():
-        pass
+    def decode(self, ids):
+        # given the list of ids(integers) return the python string
+        part_bytes = []
+        for id in ids:
+            if id in self.vocab:
+                part_bytes.append(self.vocab[id])
+            elif id in self.register_special_tokens:
+                part_bytes.append(self.register_special_tokens[id])
+            else:
+                raise ValueError(f"Invalid token id: {id}")
+            text_bytes = b"".join(part_bytes)
+            text = text_bytes.decode("utf-8", errors="replace")
+        return text
+    
+    def encode_ordinary(self, text):
+        """This encoding will ignore special tokens"""
 
     def enocde():
         pass
