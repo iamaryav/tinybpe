@@ -88,6 +88,16 @@ class RegexTokenizer(Tokenizer):
     
     def encode_ordinary(self, text):
         """This encoding will ignore special tokens"""
+        # split in the chunks of text based on the same pattern used in the training
+        text_chunks = re.findall(self.pattern, text)
+        # encode all chunks seperately and then add to the list
+        ids = []
+        for chunk in text_chunks:
+            chunk_bytes = text_chunks.encode("utf-8") # converting it to raw bytes
+            chunk_ids = self._encode_chunk(chunk_bytes)
+            ids.extend(chunk_ids)
+        return ids
+
 
     def enocde():
         pass
