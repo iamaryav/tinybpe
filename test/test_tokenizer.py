@@ -1,6 +1,6 @@
 import os
 import pytest
-from tinybpe import BasicTokenizer, replace_control_chars, render_token
+from tinybpe import BasicTokenizer, RegexTokenizer, replace_control_chars, render_token
 
 
 
@@ -57,6 +57,12 @@ def test_load():
     basic.load(file_name)
     print(basic.merges)
     assert len(basic.merges) == 1
+
+def test_regex_train():
+    reg = RegexTokenizer()
+    train_text = "hello world's ##### ????1! 😂 Namaste lol've :D, what is this"
+    merges = reg.train(train_text, 258)
+    assert 1 == 0
 
 
 if "__name__" == "__main__":

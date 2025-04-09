@@ -1,12 +1,12 @@
 import unicodedata
 
 # Helper Methods 
-def get_stats(ids):
+def get_stats(ids, counts=None):
     """
     Takes input list of Integer Example - [69, 420, 420, 42, 42, 42]
     Returns the count of pair Example - {(69, 420): 1, (420, 420): 1, (420, 42): 1, (42, 42): 2}
     """
-    counts = {}
+    counts = {} if counts is None else counts # count is dict is passed used that one
     for pair in zip(ids, ids[1:]):
         counts[pair] = 1 + counts.get(pair, 0)
     return counts 
