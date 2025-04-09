@@ -86,6 +86,9 @@ class RegexTokenizer(Tokenizer):
             text = text_bytes.decode("utf-8", errors="replace")
         return text
     
+    def _encode_chunk(self, text_bytes):
+        pass
+    
     def encode_ordinary(self, text):
         """This encoding will ignore special tokens"""
         # split in the chunks of text based on the same pattern used in the training
