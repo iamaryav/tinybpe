@@ -86,8 +86,24 @@ class RegexTokenizer(Tokenizer):
             text = text_bytes.decode("utf-8", errors="replace")
         return text
     
-    def _encode_chunk(self, text_bytes):
-        pass
+    def _encode_chunk(self, text_bytes: bytes) -> list[int]:
+        """
+        Given the bytes of text return the token ids
+        """
+        ids = list(text_bytes)
+        while len(ids) >= 2:
+            stats = get_stats(ids)
+            # check if this pair present in merges 
+            # get lowest index from that merges
+            # So this merge will happen in order
+            pair = min(stats, key= lambda p: self.merges.get(p, float("inf")))
+            if pair not in self.merges:
+                break # Nothing to merge so breaking
+            # Otherwise merge the lowest merge index
+            idx = self.merges[pair]
+            ids = merge(ids, pair, idx)
+        return ids
+
     
     def encode_ordinary(self, text):
         """This encoding will ignore special tokens"""
@@ -102,5 +118,38 @@ class RegexTokenizer(Tokenizer):
         return ids
 
 
-    def enocde():
-        pass
+    def enocde(self, text, allowed_special="none_raise"):
+        """
+        This method wil handle the encoding the special token
+        """
+
+        # These if conditions if for how to handle special tokens present in input
+        # if present then and if not present then
+        special = None
+        if allowed_special == "all":
+            special = self.special_tokens
+        elif allowed_special == "none":
+            special = {}
+        elif allowed_special == "none_raise":
+            special = {}
+            assert all(token not in text for token in self.special_tokens)
+        elif isinstance(allowed_special, set):
+            special = {k: v for k, v in self.special_tokens.items() if k in allowed_special}
+        else:
+            raise ValueError(f"allowed_special={allowed_special} is not understood")
+        
+        if not special:
+            return self.encode_ordinary(text)
+
+        special_pattern = "(" + '|'.join(re.escape(k) for k in special) + ")"
+        print(special_pattern)
+        special_chunks = re.split(special_pattern, text)
+        print(special_chunks)
+        ids = []
+        for part in special_chunks:
+            if part in special:
+                ids.append(special[part])
+            else:
+                ids.extend(self.encode_ordinary(part))
+        return ids
+        
