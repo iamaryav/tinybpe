@@ -50,11 +50,12 @@ def test_save():
     assert os.path.isfile(file_name)
 
 def test_load():
-    file_name = "test_tinybpe_tokenizer.model"
+    file_name = "test_tinybpe_tokenizer"
     basic = BasicTokenizer()
     train_text = "hello world ##### ????1! 😂 Namaste lol :D, what is this"
     merges = basic.train(train_text, 258)
     basic.save(file_name)
+    file_name = "test_tinybpe_tokenizer.model"
     basic.load(file_name)
     print(basic.merges)
     assert len(basic.merges) == 2
