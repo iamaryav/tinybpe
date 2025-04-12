@@ -74,6 +74,13 @@ def test_regex_decode():
 
     assert len(reg.merges) == 2
 
+def test_encode():
+    regex = RegexTokenizer()
+    test_text = "This is new test"
+    train_text = "hello world ##### ????1! 😂 Namaste lol :D, what is this"
+    merges = regex.train(train_text, 258)
+    out = regex.decode(regex.encode(test_text))
+    assert test_text == out
 
 if "__name__" == "__main__":
     pytest.main()

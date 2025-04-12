@@ -112,14 +112,14 @@ class RegexTokenizer(Tokenizer):
         # encode all chunks seperately and then add to the list
         ids = []
         for chunk in text_chunks:
-            chunk_bytes = text_chunks.encode("utf-8") # converting it to raw bytes
+            chunk_bytes = chunk.encode("utf-8") # converting it to raw bytes
             chunk_ids = self._encode_chunk(chunk_bytes)
             ids.extend(chunk_ids)
         return ids
 
 
     # TODO: Test this method
-    def enocde(self, text, allowed_special="none_raise"):
+    def encode(self, text, allowed_special="none_raise"):
         """
         This method wil handle the encoding the special token
         """
@@ -152,5 +152,6 @@ class RegexTokenizer(Tokenizer):
                 ids.append(special[part])
             else:
                 ids.extend(self.encode_ordinary(part))
+        print(ids)
         return ids
         
