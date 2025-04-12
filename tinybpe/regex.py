@@ -1,5 +1,10 @@
 """
-# TODO: Add Docs
+This tokenizer includes regex to split the input text into chunks
+and then converts them into tokens
+It also includes handling of special tokens.
+It is Basictokenizer + added features of handling special tokens and use spliting 
+Before training tokenizer
+I mostly followed what is present in minbpe repo
 
 """
 
@@ -78,12 +83,12 @@ class RegexTokenizer(Tokenizer):
         for id in ids:
             if id in self.vocab:
                 part_bytes.append(self.vocab[id])
-            elif id in self.register_special_tokens:
-                part_bytes.append(self.register_special_tokens[id])
+            elif id in self.inverse_special_tokens:
+                part_bytes.append(self.inverse_special_tokens[id].encode("utf-8"))
             else:
                 raise ValueError(f"Invalid token id: {id}")
-            text_bytes = b"".join(part_bytes)
-            text = text_bytes.decode("utf-8", errors="replace")
+        text_bytes = b"".join(part_bytes)
+        text = text_bytes.decode("utf-8", errors="replace")
         return text
     
     def _encode_chunk(self, text_bytes: bytes) -> list[int]:
@@ -143,15 +148,12 @@ class RegexTokenizer(Tokenizer):
             return self.encode_ordinary(text)
 
         special_pattern = "(" + '|'.join(re.escape(k) for k in special) + ")"
-        print(special_pattern)
         special_chunks = re.split(special_pattern, text)
-        print(special_chunks)
         ids = []
         for part in special_chunks:
             if part in special:
                 ids.append(special[part])
             else:
                 ids.extend(self.encode_ordinary(part))
-        print(ids)
         return ids
         

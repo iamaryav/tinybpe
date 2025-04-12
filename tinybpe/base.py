@@ -95,7 +95,7 @@ class Tokenizer:
             f.write(f"{self.pattern}\n")
             # length of special token
             f.write(f"{len(self.special_tokens)}\n")
-            for special, idx in self.special_tokens:
+            for special, idx in self.special_tokens.items():
                 f.write(f"{special} {idx}\n")
             # merges dict
             for pair, idx in self.merges:

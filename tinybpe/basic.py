@@ -32,7 +32,7 @@ class BasicTokenizer(Tokenizer):
             # find out the most frequent pair
             top_pair = max(stats, key=stats.get)
             new_token = 256 + i # New token used for current mrege
-            ids = merge(tokens, top_pair, new_token)
+            tokens = merge(tokens, top_pair, new_token)
             merges[(top_pair)] = new_token
             # vocab list to save new tokens maps to pair of string Ex - {(256): ab
             vocab[new_token] = vocab[top_pair[0]] + vocab[top_pair[1]]
