@@ -118,6 +118,7 @@ class RegexTokenizer(Tokenizer):
         return ids
 
 
+    # TODO: Test this method
     def enocde(self, text, allowed_special="none_raise"):
         """
         This method wil handle the encoding the special token
