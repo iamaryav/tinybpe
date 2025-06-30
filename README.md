@@ -3,7 +3,6 @@
  I wrote a blog to explain this in interesting ways checkout [here]()
 
 ### Installation from source
----
 ```
 git clone https://github.com/iamaryav/tinybpe.git
 cd tinybpe
@@ -11,7 +10,6 @@ cd tinybpe
 After downloading this source code don't forget install the required libraries present in the requirements.txt
 
 ### Quick start
----
 ```python
 from tinybpe import BasicTokenizer
 basic = BasicTokenizer()
@@ -30,7 +28,6 @@ basic.save("test")
 ```
 
 ### Training
----
 By following below steps you can train your own tokenizer on any dataset with vocab size of 100k
 ```python
 # Train basic tokenizer
@@ -66,7 +63,6 @@ regex_token.encode("<|endoftext|>hello world", allowed_special="all")
 ```
 
 ### Inference: comparsion with GPT4 tokenizer
----
 Comparsion between the tiktoken output and custom implementation of GPT4 tokenizer.  
 Both produced same output.
 ```python
@@ -86,26 +82,21 @@ print(gpt.encode(text))
 ```
 
 ### Tests
----
 Pytest library has been used to test the tokenizer, install pytest lib using `pip install pytest` and execute below command to run all tests
 ```
 pytest -v .
 ```
 
 ### Notes
----
 - Tokenization.ipynb contains the step by step process to build this tokenizer from scratch
 
 ### Todos
----
 - Working on future version of tokenizers and other existing tokenizer implementations.
 
 ### Wanna support? :)
-----
 - [X / Twitter](https://x.com/PriyaAryav)
 - [Buy me a coffee](https://coff.ee/aryav)
 
 ### References
----
 - [1] Wikipedia article [BPE](https://en.wikipedia.org/wiki/Byte-pair_encoding)
 - [2] Karpathy's [minbpe](https://github.com/karpathy/minbpe)
