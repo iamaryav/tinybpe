@@ -99,4 +99,4 @@ pytest -v .
 
 ## References
 - [1] Wikipedia article [BPE](https://en.wikipedia.org/wiki/Byte-pair_encoding)
-- [2] Karpathy's [minbpe](https://github.com/karpathy/minbpe)
+- [2] Karpathy's [minbpe](https://github.com/karpathy/minbpe) repo and [youtube video](https://www.youtube.com/watch?v=zduSFxRajkE)
