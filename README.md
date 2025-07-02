@@ -7,7 +7,7 @@
 git clone https://github.com/iamaryav/tinybpe.git
 cd tinybpe
 ```
-After downloading this source code don't forget install the required libraries present in the requirements.txt
+After downloading this source code don't forget install the required libraries present in the `requirements.txt`
 
 ## Quick start
 ```python
