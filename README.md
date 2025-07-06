@@ -93,10 +93,11 @@ pytest -v .
 ## Todos
 - Working on future version of tokenizers and other existing tokenizer implementations.
 
-## Wanna support? :)
+## Wanna Support? :)
 - [X / Twitter](https://x.com/PriyaAryav)
 - [Buy me a coffee](https://coff.ee/aryav)
 
 ## References
 - [1] Wikipedia article [BPE](https://en.wikipedia.org/wiki/Byte-pair_encoding)
 - [2] Karpathy's [minbpe](https://github.com/karpathy/minbpe) repo and [youtube video](https://www.youtube.com/watch?v=zduSFxRajkE)
+- [3] OpenAI's [tiktoken](https://github.com/openai/tiktoken)
