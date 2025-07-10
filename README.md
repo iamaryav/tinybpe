@@ -94,7 +94,7 @@ pytest -v .
 - Working on future version of tokenizers and other existing tokenizer implementations.
 
 ## Support me here :)
-- [X / Twitter](https://x.com/PriyaAryav)
+- [X](https://x.com/PriyaAryav)
 - [Buy me a coffee](https://coff.ee/aryav)
 
 ## References
