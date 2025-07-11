@@ -1,6 +1,6 @@
 # tinybpe
  A simple byte pair encoder inspired by Karpathy's minbpe, built to understand and learn the concept better.  
- I wrote a blog explaining this in an interesting way check it out [here]()
+ I wrote a blog explaining this in an interesting way check it out [here](https://aryav.bearblog.dev/tinybpe-a-tiny-byte-pair-encoder/)
 
 ## Installation from source
 ```
